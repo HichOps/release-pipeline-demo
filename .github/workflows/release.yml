@@ -9,6 +9,10 @@ jobs:
   release:
     runs-on: ubuntu-latest   # Choisir l'environnement d'exécution (ici un serveur Ubuntu)
 
+    permissions:
+      contents: write  # Autoriser les actions de lecture et écriture sur les contenus du dépôt
+      id-token: write  # Nécessaire pour les actions de push avec GitHub Actions
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3  # Cloner ton dépôt
@@ -39,3 +43,9 @@ jobs:
           ./release.sh standard-version  # Utilise l'outil de ton choix dans le script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Nécessaire pour pousser les tags et créer une release GitHub
+
+      - name: Push changes
+        run: |
+          git push --follow-tags origin main  # Pousser les modifications et les tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
