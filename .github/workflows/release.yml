@@ -1,0 +1,33 @@
+name: Release Pipeline
+
+on:
+  push:
+    branches:
+      - main   # Ce workflow sera déclenché lorsque tu pousses sur la branche 'main'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest   # Choisir l'environnement d'exécution (ici un serveur Ubuntu)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Cloner ton dépôt
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'   # Version de Node.js à utiliser, modifie selon ton projet
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run tests
+        run: |
+          npx jest --detectOpenHandles  # Exécuter les tests
+
+      - name: Execute release script
+        run: |
+          ./release.sh standard-version  # Utilise l'outil de ton choix dans le script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Nécessaire pour pousser les tags et créer une release GitHub
