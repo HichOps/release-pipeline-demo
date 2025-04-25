@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3  # Cloner ton dépôt
 
+      - name: Configure Git user
+        run: |
+          git config --global user.email "hicham.makhlouf@ynov.com"
+          git config --global user.name "HichOps"
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
