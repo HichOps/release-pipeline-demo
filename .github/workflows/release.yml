@@ -26,6 +26,9 @@ jobs:
         run: |
           npx jest --detectOpenHandles  # Exécuter les tests
 
+      - name: Set executable permissions for release.sh
+        run: chmod +x ./release.sh
+
       - name: Execute release script
         run: |
           ./release.sh standard-version  # Utilise l'outil de ton choix dans le script
