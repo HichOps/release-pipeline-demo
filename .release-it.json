@@ -1,0 +1,14 @@
+{
+    "npm": {
+      "publish": false
+    },
+    "git": {
+      "commit": true,
+      "tag": true,
+      "push": true
+    },
+    "github": {
+      "release": true
+    }
+  }
+  
